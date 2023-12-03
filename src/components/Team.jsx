@@ -30,7 +30,7 @@ const Team = ({open, onClose}) => {
 
     const getTeam = async() => {
       try {
-         const response = await axios.get(`http://localhost:3000/api/users/team/${id}`)
+         const response = await axios.get(`https://user-system-api-dzpj.onrender.com/api/users/team/${id}`)
          console.log(response.data)
          setUsers(response.data)
       } catch (error) {
@@ -59,7 +59,7 @@ const Team = ({open, onClose}) => {
   users[0].team.map((user) => (
     <div className='user' key={user._id}>
       <div className='user-image'>
-        <img src='https://robohash.org/ullamsuntet.png?size=50x50&set=set1' alt='User Avatar' />
+        <img src={user.avatar} alt='User Avatar' />
       </div>
       <div className='user-info'>
         <h3>{user.first_name}</h3>

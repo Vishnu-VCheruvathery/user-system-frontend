@@ -33,7 +33,7 @@ const AddTeam = ({userId,open, onClose}) => {
 
      const addTeam = async(id) => {
         try {
-            const response = await axios.post(`http://localhost:3000/api/users/team/`, {id, userId})
+            const response = await axios.post(`https://user-system-api-dzpj.onrender.com/api/users/team/`, {id, userId})
             console.log(response.data)
             return response.data
         } catch (error) {

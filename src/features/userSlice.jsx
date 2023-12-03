@@ -6,7 +6,7 @@ import axios from "axios";
 
 export const searchUser = createAsyncThunk('searchUser', async(name, {rejectWithValue}) => {
     try {
-        const response = await axios.get(`http://localhost:3000/api/users/find?name=${name}`)
+        const response = await axios.get(`https://user-system-api-dzpj.onrender.com/api/users/find?name=${name}`)
         return response.data
     } catch (error) {
         console.log(error)
@@ -16,7 +16,7 @@ export const searchUser = createAsyncThunk('searchUser', async(name, {rejectWith
 export const filterUsers = createAsyncThunk('filterUsers', async(args, {rejectWithValue}) => {
     try {
         const {domain, availability, gender} = args
-        const response = await axios.get(`http://localhost:3000/api/users/filtered-users?domain=${domain}&gender=${gender}&availability=${availability}`)
+        const response = await axios.get(`https://user-system-api-dzpj.onrender.com/api/users/filtered-users?domain=${domain}&gender=${gender}&availability=${availability}`)
         console.log(response.data)
         return response.data
     } catch (error) {
@@ -26,7 +26,7 @@ export const filterUsers = createAsyncThunk('filterUsers', async(args, {rejectWi
 
 export const showUsers = createAsyncThunk('showUsers', async(page, {rejectWithValue}) => {
     try {
-        const response = await axios.get(`http://localhost:3000/api/users?page=${page}`);
+        const response = await axios.get(`https://user-system-api-dzpj.onrender.com/api/users?page=${page}`);
         console.log(response.data)
         return response.data
     } catch (error) {
@@ -38,7 +38,7 @@ export const addUsers = createAsyncThunk('addUsers', async (args, { rejectWithVa
     try {
       const { id, first, last, email, gender, avatar, domain, available } = args;
       console.log(args)
-      const response = await axios.post('http://localhost:3000/api/users', {
+      const response = await axios.post('https://user-system-api-dzpj.onrender.com/api/users', {
         id, first, last, email, gender, avatar, domain, available
       });
       toast.success('User added')
@@ -52,7 +52,7 @@ export const addUsers = createAsyncThunk('addUsers', async (args, { rejectWithVa
 
   export const deleteUsers = createAsyncThunk('deleteUsers', async(id, {rejectWithValue}) => {
         try {
-            const response = await axios.delete(`http://localhost:3000/api/users/${id}`)
+            const response = await axios.delete(`https://user-system-api-dzpj.onrender.com/api/users/${id}`)
             console.log(response.data)
             toast.success('User removed')
             window.location.reload()
@@ -65,7 +65,7 @@ export const addUsers = createAsyncThunk('addUsers', async (args, { rejectWithVa
    export const updateUsers = createAsyncThunk('updateUsers', async(args, {rejectWithValue}) => {
       try {
         const { userId,id, first, last, email, gender, avatar, domain, available } = args;
-        const response = await axios.put(`http://localhost:3000/api/users/${userId}`, {
+        const response = await axios.put(`https://user-system-api-dzpj.onrender.com/api/users/${userId}`, {
             id, first, last, email, gender, avatar, domain, available 
           });
 
