@@ -33,7 +33,21 @@
     justify-content: center;
 }
 
+.delete-user{
+    display: flex;
+    height: 100%;
+    align-items: center;
+}
+
+.message{
+    width: 100%;
+    background-color: white;
+    margin: 150px auto;
+}
+
 @media only screen and (max-width: 768px){
+   
+    
     .teamId{
         flex-direction: column;
     }
@@ -56,5 +70,12 @@
     .user-info{
         width: 100%;
         padding: 10px;
+    }
+
+    .delete-user{
+        display: flex;
+        justify-content: center;
+        padding: 10px;
+        width: 100%;
     }
   }

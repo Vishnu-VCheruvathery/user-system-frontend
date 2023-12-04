@@ -27,10 +27,14 @@ const OVERLAY_STYLE = {
 const Team = ({open, onClose}) => {
     const [id, setId] = useState('')
     const [users, setUsers] = useState([])
+    const [errorMessage, setErrorMessage] = useState('')
 
-    const getTeam = async() => {
+    const getTeam = async({id}) => {
       try {
-         const response = await axios.get(`https://user-system-api-dzpj.onrender.com/api/users/team/${id}`)
+         const response = await axios.get(`http://localhost:3000/api/users/team/${id}`)
+         if(response.error){
+           setErrorMessage(response.error)
+         }
          console.log(response.data)
          setUsers(response.data)
       } catch (error) {
@@ -38,56 +42,71 @@ const Team = ({open, onClose}) => {
       }
     }
 
-  
+    const deleteTeam = async({id, userId}) => {
+      try {
+        const response = await axios.delete(`http://localhost:3000/api/users/team/${id}/${userId}`)
+        console.log(response.data)
+        return response.data
+      } catch (error) {
+        console.log(error)
+      }
+    }
 
 
     if(!open) return null
 
     return createPortal(
       <>
-      <div style={OVERLAY_STYLE} />
-      <div style={MODAL_STYLES}>
-      <button onClick={onClose} style={{marginBottom: '5px'}}>Close</button>
-      <div className='teamId'>
-      <label>Which Team are you searching for?</label>
-      <input value={id} onChange={(e) => setId(e.target.value)}></input>
-      <button onClick={getTeam}>Get</button>
-      </div>
-      <div className='model'>
-
-      {users.length > 0 ? (
-  users[0].team.map((user) => (
-    <div className='user' key={user._id}>
-      <div className='user-image'>
-        <img src={user.avatar} alt='User Avatar' />
-      </div>
-      <div className='user-info'>
-        <h3>{user.first_name}</h3>
-        <h3>{user.last_name}</h3>
-        <p>Domain: {user.domain}</p>
-        <p>Availability: {String(user.available) || 'N/A'}</p>
-      </div>
+        <div style={OVERLAY_STYLE} />
+        <div style={MODAL_STYLES}>
+          <button onClick={onClose} style={{ marginBottom: '5px' }}>
+            Close
+          </button>
+          <div className='teamId'>
+            <label>Which Team are you searching for?</label>
+            <input value={id} onChange={(e) => setId(e.target.value)} />
+            <button onClick={() => getTeam({id})}>Get</button>
+          </div>
+          <div className='model'>
+            {users.length > 0 ? (
+              users[0].team.map((user) => (
+                <div className='user' key={user._id}>
+                  <div className='user-image'>
+                    <img src={user.avatar} alt='User Avatar' />
+                  </div>
+                  <div className='user-info'>
+                    <h3>{user.first_name}</h3>
+                    <h3>{user.last_name}</h3>
+                    <p>Domain: {user.domain}</p>
+                    <p>Availability: {String(user.available) || 'N/A'}</p>
+                  </div>
+                  <div>
+                    <button
+                      className='delete-user'
+                      onClick={() => deleteTeam(user._id)}
+                    >
+                      <i className='fa-solid fa-trash'></i>
+                    </button>
+                  </div>
+                </div>
+              ))
+            ) : (
+              errorMessage ? (
+    <div className='message'>
+      <h1>{errorMessage}</h1>
     </div>
-  ))
-) : (
-  <div
-    style={{
-      width: '100px',
-      backgroundColor: 'white',
-      margin: '150px auto',
-    }}
-  >
-    <h1>No Users yet.</h1>
-  </div>
-)}
-    
-      </div>
-     
-      </div>
+  ) : (
+    <div className='message'>
+      <h1>No Users yet.</h1>
+    </div>
+  )
+           
+            )}
+          </div>
+        </div>
       </>,
-  
       document.getElementById('portal')
-    )
+    );
 }
 
 export default Team
