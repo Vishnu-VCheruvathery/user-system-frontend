@@ -32,8 +32,9 @@ const Team = ({open, onClose}) => {
     const getTeam = async({id}) => {
       try {
          const response = await axios.get(`https://user-system-api-dzpj.onrender.com/api/users/team/${id}`)
-         if(response.error){
-           setErrorMessage(response.error)
+         if(response.data.error){
+          console.log(response.data.error)
+           setErrorMessage(response.data.error)
          }
          console.log(response.data)
          setUsers(response.data)
