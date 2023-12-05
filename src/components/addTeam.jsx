@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { useState } from 'react'
 import { createPortal } from 'react-dom'
+import toast from 'react-hot-toast';
 
 const MODAL_STYLES = {
     position: "fixed",
@@ -35,6 +36,7 @@ const AddTeam = ({userId,open, onClose}) => {
         try {
             const response = await axios.post(`https://user-system-api-dzpj.onrender.com/api/users/team/`, {id, userId})
             console.log(response.data)
+            toast(response.data)
             return response.data
         } catch (error) {
             console.log(error)
