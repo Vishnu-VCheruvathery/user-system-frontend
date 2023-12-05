@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { createPortal } from 'react-dom';
 import axios from 'axios';
 import './Team.css'
+import toast from 'react-hot-toast';
 
 const MODAL_STYLES = {
     position: "fixed",
@@ -47,6 +48,12 @@ const Team = ({open, onClose}) => {
       try {
         const response = await axios.delete(`https://user-system-api-dzpj.onrender.com/api/users/team/${id}/${userId}`)
         console.log(response.data)
+        if(response.data.error){
+          console.log(response.data.error)
+           setErrorMessage(response.data.error)
+         }
+        window.location.reload()
+        toast(response.data.message)
         return response.data
       } catch (error) {
         console.log(error)
@@ -84,7 +91,7 @@ const Team = ({open, onClose}) => {
                   <div>
                     <button
                       className='delete-user'
-                      onClick={() => deleteTeam(user._id)}
+                      onClick={() => deleteTeam({id, userId:user._id})}
                     >
                       <i className='fa-solid fa-trash'></i>
                     </button>

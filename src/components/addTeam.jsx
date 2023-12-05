@@ -36,7 +36,7 @@ const AddTeam = ({userId,open, onClose}) => {
         try {
             const response = await axios.post(`https://user-system-api-dzpj.onrender.com/api/users/team/`, {id, userId})
             console.log(response.data)
-            toast(response.data)
+            toast(response.data.message)
             return response.data
         } catch (error) {
             console.log(error)

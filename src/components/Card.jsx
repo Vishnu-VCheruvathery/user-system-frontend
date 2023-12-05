@@ -7,6 +7,7 @@ import { deleteUsers } from '../features/userSlice';
 import AddTeam from './addTeam';
 
 
+
 const Card = ({user}) => {
   
   const dispatch = useDispatch()
