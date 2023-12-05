@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { createPortal } from 'react-dom';
 import { useDispatch } from 'react-redux';
 import { addUsers } from '../features/userSlice';
-
+import './Modal.css'
 
 const MODAL_STYLES = {
     position: "fixed",
@@ -41,8 +41,16 @@ const Modal = ({open, onClose}) => {
       const [avatar, setAvatar] = useState('')
       const [domain, setDomain] = useState('')
       const [available, setAvailable] = useState('')
+     
 
 
+
+      const handleSubmit = (e) => {
+        e.preventDefault()
+        if(id&&first&&last&&email&&gender&&avatar&&domain&&available){
+          dispatch(addUsers({id, first, last, email, gender, avatar, domain, available}))
+        }
+      }
 
     if(!open) return null
     return createPortal(
@@ -50,6 +58,7 @@ const Modal = ({open, onClose}) => {
      <div style={OVERLAY_STYLE} />
       <div className='add-modal' style={MODAL_STYLES}>
       <button onClick={onClose}>X</button>
+      <form onSubmit={handleSubmit}>
       <label htmlFor='id'>Enter ID</label>
       <input 
       placeholder='id'
@@ -57,6 +66,7 @@ const Modal = ({open, onClose}) => {
       value={id}
       onChange={(e) => setID(e.target.value)}
       required></input>
+ 
       <label htmlFor='first'>Enter First Name</label>
       <input 
       placeholder='FirstName'
@@ -65,6 +75,7 @@ const Modal = ({open, onClose}) => {
       required
       onChange={(e) => setFirst(e.target.value)}
       ></input>
+     
       <label htmlFor='last'>Enter Last Name</label>
       <input 
       placeholder='LastName'
@@ -73,6 +84,7 @@ const Modal = ({open, onClose}) => {
       required
       onChange={(e) => setLast(e.target.value)}
       ></input>
+   
        <label htmlFor='email'>Enter Email</label>
       <input 
       placeholder='email'
@@ -81,6 +93,7 @@ const Modal = ({open, onClose}) => {
       required
       onChange={(e) => setEmail(e.target.value)}
       ></input>
+    
        <label htmlFor='gender'>Enter Gender</label>
       <input 
       placeholder='gender'
@@ -89,6 +102,7 @@ const Modal = ({open, onClose}) => {
       required
       onChange={(e) => setGender(e.target.value)}
       ></input>
+     
       <label htmlFor='url'>Insert Avatar</label>
       <input 
       placeholder='url'
@@ -97,6 +111,7 @@ const Modal = ({open, onClose}) => {
       required
       onChange={(e) => setAvatar(e.target.value)}
       ></input>
+  
       <label htmlFor='domain'>Enter Domain</label>
       <input 
       placeholder='domain'
@@ -105,6 +120,7 @@ const Modal = ({open, onClose}) => {
       required
       onChange={(e) => setDomain(e.target.value)}
       ></input>
+   
       <label htmlFor='available'>Enter Availability</label>
       <input 
       placeholder='available'
@@ -113,9 +129,10 @@ const Modal = ({open, onClose}) => {
       required
       onChange={(e) => setAvailable(e.target.value)}
       ></input>
-      <button onClick={() => 
-        dispatch(addUsers({id, first, last, email, gender, avatar, domain, available}))
-      }>Submit</button>
+      
+      <button>Submit</button>
+      </form>
+    
       </div>
     </>,
     document.getElementById('portal')

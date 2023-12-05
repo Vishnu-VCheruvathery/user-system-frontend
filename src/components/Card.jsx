@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import './Card.css'
-import axios from 'axios'
 import Update from './Update';
 import { useDispatch } from 'react-redux';
 import { deleteUsers } from '../features/userSlice';

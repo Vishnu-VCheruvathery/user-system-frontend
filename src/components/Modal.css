@@ -1,8 +1,8 @@
-.add-modal input:required{
-    border: 1px solid red; 
+form{
+    display: flex;
+    flex-direction: column;
 }
 
-.add-modal label[for]:required::after{
-    content: " *"; /* Add an asterisk after the label for required fields */
+.error{
     color: red;
-  }
+}

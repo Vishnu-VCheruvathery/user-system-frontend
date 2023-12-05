@@ -10,7 +10,7 @@ import Team from './components/Team'
 
 function App() {
   const dispatch = useDispatch()
-  const {users} = useSelector((state) => state.user)
+  const {users, error} = useSelector((state) => state.user)
   const [isOpen, setIsOpen] = useState(false);
   const [teamOpen, setTeamOpen] = useState(false)
   const [filter, setFilter] = useState(false)
@@ -67,7 +67,7 @@ function App() {
       </div>
       <Team open={teamOpen} onClose={() => setTeamOpen(false)}/>
     </div>
-        {users.length > 0 ? (users.map((user) => (
+        {users.length > 0 || error ? (users.map((user) => (
           <Card key={user.id} user={user} />
         ))) : (  <div
     style={{

@@ -7,9 +7,13 @@ import axios from "axios";
 export const searchUser = createAsyncThunk('searchUser', async(name, {rejectWithValue}) => {
     try {
         const response = await axios.get(`https://user-system-api-dzpj.onrender.com/api/users/find?name=${name}`)
+        if(response.data.error){
+            toast(response.data.error)
+            return rejectWithValue(String(response.data.error))
+        }
         return response.data
     } catch (error) {
-        console.log(error)
+      return rejectWithValue(error)
     }
 })
 
@@ -17,7 +21,10 @@ export const filterUsers = createAsyncThunk('filterUsers', async(args, {rejectWi
     try {
         const {domain, availability, gender} = args
         const response = await axios.get(`https://user-system-api-dzpj.onrender.com/api/users/filtered-users?domain=${domain}&gender=${gender}&availability=${availability}`)
-        console.log(response.data)
+        if(response.data.error){
+            toast(response.data.error)
+            return rejectWithValue(String(response.data.error))
+        }
         return response.data
     } catch (error) {
         return rejectWithValue(error)

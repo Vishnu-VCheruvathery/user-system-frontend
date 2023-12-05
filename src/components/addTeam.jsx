@@ -34,10 +34,15 @@ const AddTeam = ({userId,open, onClose}) => {
 
      const addTeam = async(id) => {
         try {
-            const response = await axios.post(`https://user-system-api-dzpj.onrender.com/api/users/team/`, {id, userId})
-            console.log(response.data)
-            toast(response.data.message)
-            return response.data
+            if(isNaN(id)){
+              const response = await axios.post(`https://user-system-api-dzpj.onrender.com/api/users/team/`, {id, userId})
+              console.log(response.data)
+              toast(response.data.message)
+              return response.data
+            }else{
+              toast('Only Numbers are allowed')
+            }
+           
         } catch (error) {
             console.log(error)
         }
@@ -51,7 +56,7 @@ const AddTeam = ({userId,open, onClose}) => {
     <div style={MODAL_STYLES}>
     <button onClick={onClose}>Close Modal</button>
     <label>Add a team Id</label>
-      <input value={teamId} onChange={(e) => setTeamId(e.target.value)}></input>
+      <input type='number' value={teamId} onChange={(e) => setTeamId(e.target.value)}></input>
       <button onClick={() => addTeam(teamId)}>Submit</button>
     </div>
     </>,
