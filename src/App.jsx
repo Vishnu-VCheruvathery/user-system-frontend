@@ -86,7 +86,7 @@ function App() {
           Previous Page
         </button>
         <span>{currentPage}</span>
-        <button onClick={handleNextPage}>Next Page</button>
+       {users.length <= 20 ? <button disabled onClick={handleNextPage}>Next Page</button> : <button onClick={handleNextPage}>Next Page</button>} 
       </div>
     </div>
   );
