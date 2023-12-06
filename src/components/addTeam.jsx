@@ -56,7 +56,7 @@ const AddTeam = ({userId,open, onClose}) => {
     <div style={MODAL_STYLES}>
     <button onClick={onClose}>Close Modal</button>
     <label>Add a team Id</label>
-      <input type='number' value={teamId} onChange={(e) => setTeamId(e.target.value)}></input>
+      <input value={teamId} onChange={(e) => setTeamId(e.target.value)}></input>
       <button onClick={() => addTeam(teamId)}>Submit</button>
     </div>
     </>,
