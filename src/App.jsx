@@ -38,7 +38,7 @@ function App() {
   return (
     <div className='main'>
       <Toaster 
-           position={window.innerWidth < 768 ? 'bottom-center' : 'bottom-right'}
+           position={window.innerWidth < 768 ? 'bottom-center' : 'top-center'}
           toastOptions={{duration: 5000}} />
       <Modal open={isOpen} onClose={() => setIsOpen(false)} />
      
