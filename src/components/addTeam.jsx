@@ -34,14 +34,11 @@ const AddTeam = ({userId,open, onClose}) => {
 
      const addTeam = async(id) => {
         try {
-            if(isNaN(id)){
+
               const response = await axios.post(`https://user-system-api-dzpj.onrender.com/api/users/team/`, {id, userId})
               console.log(response.data)
               toast(response.data.message)
               return response.data
-            }else{
-              toast('Only Numbers are allowed')
-            }
            
         } catch (error) {
             console.log(error)
